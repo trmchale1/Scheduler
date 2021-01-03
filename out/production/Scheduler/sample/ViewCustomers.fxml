@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <MenuBar fx:id="mainMenuBar" prefHeight="32.0" prefWidth="950.0" AnchorPane.bottomAnchor="448.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="menuExitItem" mnemonicParsing="false" text="Exit" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Label fx:id="mainTitleLabel" layoutX="14.0" layoutY="45.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-label-padding: 4;" text="View Customers" textFill="#433f3f">
+            <font>
+                <Font name="Courier monospace" size="20.0" />
+            </font>
+        </Label>
+        <Button layoutX="893.0" layoutY="440.0" mnemonicParsing="false"  text="Exit" />
+        <AnchorPane id="outterPartsBoxMain"  layoutX="14.0" layoutY="126.0" prefHeight="300.0" prefWidth="850.0" style="-fx-border-radius: 20; -fx-border-color: gray;">
+            <children>
+                <Button layoutX="373.0" layoutY="18.0" mnemonicParsing="false"  text="Search" />
+                <TextField id="partsSearchFieldMain" fx:id="partSearchBox" layoutX="176.0" layoutY="20.0"  prefHeight="22.0" prefWidth="182.0" style="-fx-padding: 2; -fx-border-color: gray;" />
+                <Button fx:id="addPartButton" layoutX="14.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Add" />
+                <Button layoutX="294.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Modify" />
+                <Button layoutX="378.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Delete" />
+                <TableView fx:id="partsTable" layoutX="10.0" layoutY="58.0" prefHeight="250.0" prefWidth="825.0">
+                    <columns>
+                        <TableColumn fx:id="id" prefWidth="93.0" text="Customer ID">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="id" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="name" prefWidth="118.0" text="Customer Name">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Name" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="address" prefWidth="106.0" style="text-align: justify;" text="Address">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="stock" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="postal" prefWidth="106.0" style="text-align: justify;" text="Postal Code">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="stock" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="phone" prefWidth="106.0" style="text-align: justify;" text="Phone">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="stock" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+            </children>
+        </AnchorPane>

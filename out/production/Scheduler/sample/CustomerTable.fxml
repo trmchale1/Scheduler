@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane ?>
+<BorderPane fx:id="mainBorderPane"  xmlns:fx="http://javafx.com/fxml" prefHeight="400" prefWidth="400">
+    <left>
+        <VBox spacing="5">
+            <Button fx:id="button2" userData="/sample/ViewCustomers.fxml" text="View Customers" onAction="#handleShowView"/>
+            <Button fx:id="button1" userData="/sample/AddCustomer.fxml" text="Add Customer" onAction="#handleShowView"/>
+            <Button fx:id="button3" userData="/sample/AddAppointment.fxml" text="Add Appointment" onAction="#handleShowView"/>
+        </VBox>
+    </left>
+    <center>
+        <fx:include source="ViewCustomers.fxml"/>
+    </center>
+</BorderPane>

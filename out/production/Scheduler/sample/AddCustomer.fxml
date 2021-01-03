@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="535.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <Label layoutX="16.0" layoutY="14.0" style="-fx-label-padding: 0;" text="Add Customer">
+            <font>
+                <Font name="System Bold" size="28.0"/>
+            </font>
+        </Label>
+      <TextField fx:id="id" editable="false" layoutX="188.0" layoutY="115.0"
+                   prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: cdcdcd;"/>
+        <TextField fx:id="name" layoutX="188.0" layoutY="165.0"  prefHeight="40.0"
+                   prefWidth="150.0"/>
+        <TextField fx:id="address" layoutX="188.0" layoutY="215.0"  prefHeight="40.0"
+                   prefWidth="150.0"/>
+        <TextField fx:id="postal" layoutX="188.0" layoutY="265.0"  prefHeight="40.0"
+                   prefWidth="150.0"/>
+        <TextField fx:id="phone" layoutX="188.0" layoutY="315.0" prefHeight="40.0"
+                   prefWidth="75.0"/>
+        <Label layoutX="63.0" layoutY="126.0" text="Customer ID">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="176.0" text="Customer Name">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="226.0" text="Address">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="276.0" text="Postal Code">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="327.0" text="Phone">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Button fx:id="cancelAddPartButton" layoutX="394.0" layoutY="485.0" mnemonicParsing="false"
+                 prefHeight="36.0" prefWidth="67.0" text="Cancel"/>
+        <Button fx:id="saveButton" layoutX="183.0" layoutY="445.0" mnemonicParsing="false"
+                prefHeight="40.0" prefWidth="110.0" text="Save">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
