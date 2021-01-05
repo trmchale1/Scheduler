@@ -17,8 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class CustomerTable implements Initializable {
-    @FXML
-    private ObservableList<String> countries = FXCollections.observableArrayList();
+
     @FXML
     private ObservableList<String> divisions = FXCollections.observableArrayList();
 
@@ -42,7 +41,7 @@ public class CustomerTable implements Initializable {
     private void acHandleShowView(ActionEvent e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("addCustomer.fxml"));
-            AddCustomer controller = new AddCustomer(this.countries, this.divisions);
+            AddCustomer controller = new AddCustomer(this.divisions);
 
             loader.setController(controller);
             Parent root = loader.load();
@@ -82,7 +81,6 @@ public class CustomerTable implements Initializable {
                     String country = rs.getString("Country");
                     int division_id = rs.getInt("Division_ID");
                     String division = rs.getString("Division");
-                    countries.add(country);
                     divisions.add(division);
                     System.out.println("Country ID: " + country_id + " Country: " + country );
                     System.out.println("Division ID: " + division_id + " Division: " + division);
