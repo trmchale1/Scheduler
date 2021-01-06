@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class CustomerTable implements Initializable {
 
     @FXML
-    private ObservableList<String> divisions = FXCollections.observableArrayList();
+    private ObservableList<Divisions> divisions = FXCollections.observableArrayList();
 
     @FXML
     private BorderPane mainBorderPane;
@@ -40,7 +40,7 @@ public class CustomerTable implements Initializable {
     @FXML
     private void acHandleShowView(ActionEvent e) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addCustomer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCustomer.fxml"));
             AddCustomer controller = new AddCustomer(this.divisions);
 
             loader.setController(controller);
@@ -67,7 +67,6 @@ public class CustomerTable implements Initializable {
 
     public void updateModel() {
         try {
-            System.out.println("***** Begin Update Customer Table *****");
             DBConnection db = new DBConnection();
             Connection conn = db.makeConnection();
             Statement stmt = conn.createStatement();
@@ -77,16 +76,13 @@ public class CustomerTable implements Initializable {
             } else {
                 System.out.println("Table not empty.");
                 while(rs.next()) {
-                    int country_id = rs.getInt("Country_ID");
-                    String country = rs.getString("Country");
-                    int division_id = rs.getInt("Division_ID");
                     String division = rs.getString("Division");
-                    divisions.add(division);
-                    System.out.println("Country ID: " + country_id + " Country: " + country );
-                    System.out.println("Division ID: " + division_id + " Division: " + division);
+                    int division_id = rs.getInt("Division_ID");
+                    int country_id = rs.getInt("Country_ID");
+                    Divisions d = new Divisions(division_id,division,country_id);
+                    divisions.add(d);
                 }
             }
-            System.out.println("***** End Update Customer Table *****");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
