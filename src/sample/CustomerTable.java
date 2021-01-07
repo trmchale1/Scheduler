@@ -35,6 +35,7 @@ public class CustomerTable implements Initializable {
         try {
             popCustomers();
             popTable();
+            updateModel();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -79,40 +80,29 @@ public class CustomerTable implements Initializable {
         }
     }
 
- /*
+
     public void updateModel() {
         try {
-             DBConnection db = new DBConnection();
+            DBConnection db = new DBConnection();
             Connection conn = db.makeConnection();
-            PreparedStatement stmt = conn.prepareStatement("");
-                    stmt.execute();
-            stmt.close();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("Select * From countries c join first_level_divisions d on c.Country_ID = d.Country_ID");
-           ResultSetMetaData r = rs.getMetaData();
             System.out.println(rs);
-            if (rs.next() == false) {
-                System.out.println("Table empty.");
-            } else {
-                System.out.println("Table not empty.");
-                while(rs.next()) {
-                    String division = rs.getString("Division");
-                    int division_id = rs.getInt("Division_ID");
-                    int country_id = rs.getInt("Country_ID");
-                    Divisions d = new Divisions(division_id,division,country_id);
-                    divisions.add(d);
-                }
+            while (rs.next()) {
+                String division = rs.getString("Division");
+                int division_id = rs.getInt("Division_ID");
+                int country_id = rs.getInt("Country_ID");
+                Divisions d = new Divisions(division_id, division, country_id);
+                divisionsCollection.add(d);
             }
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         } catch (Exception x) {
-
+            x.printStackTrace();
         }
     }
-*/
+
 
     public void popCustomers() {
         try {

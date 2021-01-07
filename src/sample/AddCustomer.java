@@ -75,6 +75,7 @@ public class AddCustomer implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         setRegions();
     }
 
@@ -83,25 +84,27 @@ public class AddCustomer implements Initializable {
            int div_id =  d.getDivision_id();
            String div = d.getDivision();
            int c_id = d.getCountry_id();
-           System.out.println("Division ID: " + div_id + " Division: " + div + " Country ID " + c_id);
-           if(c_id == 38){
-               can.add(div);
-           } else if (c_id == 230){
-               uk.add(div);
-           } else{
+   //        System.out.println("Division ID: " + div_id + " Division: " + div + " Country ID " + c_id);
+           if(c_id == 1){
                us.add(div);
+           } else if (c_id == 2){
+               uk.add(div);
+           } else if (c_id == 3){
+               can.add(div);
            }
         }
-
+        for(String u: can)
+            System.out.println("Uk: " + u);
         choice_count.setItems(FXCollections.observableArrayList("Canada","United Kingdom","United States"));
         choice_count.setOnAction((Event) -> {
             int index = choice_count.getSelectionModel().getSelectedIndex();
-            if(index == 1){
-                choice_div.setItems(uk);
-            } else if (index == 2) {
-                choice_div.setItems(us);
-            } else {
+            System.out.println(index);
+            if(index == 0){
                 choice_div.setItems(can);
+            } else if (index == 1) {
+                choice_div.setItems(uk);
+            } else if(index == 2){
+                choice_div.setItems(us);
             }
         });
 
@@ -115,13 +118,6 @@ public class AddCustomer implements Initializable {
         alert.setContentText("Click ok to confirm");
         Optional<ButtonType> result = alert.showAndWait();
         CustomerTable(event);
-    }
-
-    private void resetFieldsStyle() {
-        customer_name.setStyle("-fx-border-color: lightgray");
-        address.setStyle("-fx-border-color: lightgray");
-        postal_code.setStyle("-fx-border-color: lightgray");
-        phone.setStyle("-fx-border-color: lightgray");
     }
 
     private void resetFields() {
@@ -146,6 +142,22 @@ public class AddCustomer implements Initializable {
     } catch (IOException e) {
         e.printStackTrace();
     } }
+
+    @FXML
+    private void saveCustomer(MouseEvent event){
+        System.out.println(choice_div.getSelectionModel().getSelectedItem());
+        try {
+            int id = Integer.parseInt(customer_id.getText().trim());
+            String name = customer_name.getText().trim();
+            String add_temp = address.getText().trim();
+            String postal_code_temp = postal_code.getText().trim();
+            String phone_temp = phone.getText().trim();
+            System.out.println(choice_count.getValue());
+//            Customers custObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,choice_div.getValue(),choice_count.getValue());
+        } catch (Exception e){
+
+        }
+    }
 
 }
 
