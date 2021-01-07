@@ -9,7 +9,8 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            fx:controller="sample.CustomerTable">
     <children>
         <MenuBar fx:id="mainMenuBar" prefHeight="32.0" prefWidth="950.0" AnchorPane.bottomAnchor="448.0">
             <menus>
@@ -28,36 +29,44 @@
         <Button layoutX="893.0" layoutY="440.0" mnemonicParsing="false"  text="Exit" />
         <AnchorPane id="outterPartsBoxMain"  layoutX="14.0" layoutY="126.0" prefHeight="300.0" prefWidth="850.0" style="-fx-border-radius: 20; -fx-border-color: gray;">
             <children>
-                <Button layoutX="373.0" layoutY="18.0" mnemonicParsing="false"  text="Search" />
-                <TextField id="partsSearchFieldMain" fx:id="partSearchBox" layoutX="176.0" layoutY="20.0"  prefHeight="22.0" prefWidth="182.0" style="-fx-padding: 2; -fx-border-color: gray;" />
-                <Button fx:id="addPartButton" layoutX="14.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Add" />
+                <Button fx:id="addCustomerButton" layoutX="14.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Add" />
                 <Button layoutX="294.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Modify" />
                 <Button layoutX="378.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Delete" />
-                <TableView fx:id="partsTable" layoutX="10.0" layoutY="58.0" prefHeight="250.0" prefWidth="825.0">
+                <TableView fx:id="customerTable" layoutX="10.0" layoutY="58.0" prefHeight="250.0" prefWidth="825.0">
                     <columns>
                         <TableColumn fx:id="id" prefWidth="93.0" text="Customer ID">
                             <cellValueFactory>
-                                <PropertyValueFactory property="id" />
+                                <PropertyValueFactory property="customer_id" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="name" prefWidth="118.0" text="Customer Name">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Name" />
+                                <PropertyValueFactory property="customer_name" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="address" prefWidth="106.0" style="text-align: justify;" text="Address">
                             <cellValueFactory>
-                                <PropertyValueFactory property="stock" />
+                                <PropertyValueFactory property="address" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="postal" prefWidth="106.0" style="text-align: justify;" text="Postal Code">
                             <cellValueFactory>
-                                <PropertyValueFactory property="stock" />
+                                <PropertyValueFactory property="postal_code" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="phone" prefWidth="106.0" style="text-align: justify;" text="Phone">
                             <cellValueFactory>
-                                <PropertyValueFactory property="stock" />
+                                <PropertyValueFactory property="phone" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="division" prefWidth="106.0" style="text-align: justify;" text="Division">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="division" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="country" prefWidth="106.0" style="text-align: justify;" text="Country">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="country" />
                             </cellValueFactory>
                         </TableColumn>
                     </columns>

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import java.sql.*;
@@ -19,20 +20,29 @@ import javafx.stage.Stage;
 public class CustomerTable implements Initializable {
 
     @FXML
-    private ObservableList<Divisions> divisions = FXCollections.observableArrayList();
-
+    private ObservableList<Divisions> divisionsCollection = FXCollections.observableArrayList();
+    @FXML
+    private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
     @FXML
     private BorderPane mainBorderPane;
+
+    @FXML
+    private TableView<Customers> customerTable = new TableView<Customers>();
 
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         try {
-
-            dbEmpty();
+            popCustomers();
+            popTable();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @FXML
+    private void popTable(){
+        customerTable.setItems(customerCollection);
     }
 
     @FXML
@@ -45,7 +55,7 @@ public class CustomerTable implements Initializable {
     private void acHandleShowView(ActionEvent e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCustomer.fxml"));
-            AddCustomer controller = new AddCustomer(this.divisions);
+            AddCustomer controller = new AddCustomer(this.divisionsCollection,this.customerCollection);
 
             loader.setController(controller);
             Parent root = loader.load();
@@ -104,22 +114,24 @@ public class CustomerTable implements Initializable {
     }
 */
 
-    public void dbEmpty() {
+    public void popCustomers() {
         try {
             DBConnection db = new DBConnection();
             Connection conn = db.makeConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * From first_level_divisions");
-            if (rs.next() == false) {
-                System.out.println("Table empty.");
-            } else {
-                System.out.println("Table not empty.");
-                while(rs.next()) {
-                    String title = rs.getString("Division");
-
-                    System.out.println("Division: " + title );
+            ResultSet rs = stmt.executeQuery("Select * From customers c join first_level_divisions d On c.Division_ID = d.Division_ID join countries co On co.Country_ID = d.Country_ID");
+            while(rs.next()){
+                    int id = rs.getInt("Customer_ID");
+                    String name = rs.getString("Customer_Name");
+                    String address = rs.getString("Address");
+                    String postal_code = rs.getString("Postal_Code");
+                    String phone = rs.getString("Phone");
+                    String division = rs.getString("Division");
+                    String country = rs.getString("Country");
+                    System.out.println(id + " " + name + " " + address + " " + postal_code + " " + phone + " " + division + " " + country);
+                    Customers custObject = new Customers(id,name,address,postal_code,phone,division,country);
+                    customerCollection.add(custObject);
                 }
-            }
         } catch (Exception e){
             e.printStackTrace();
         }
