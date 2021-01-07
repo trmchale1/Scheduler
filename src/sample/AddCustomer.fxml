@@ -10,13 +10,13 @@
                 <Font name="System Bold" size="28.0"/>
             </font>
         </Label>
-      <TextField fx:id="id" editable="false" layoutX="188.0" layoutY="75.0"
+      <TextField fx:id="customer_id" editable="false" layoutX="188.0" layoutY="75.0"
                    prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: cdcdcd;"/>
-        <TextField fx:id="name" layoutX="188.0" layoutY="125.0"  prefHeight="40.0"
+        <TextField fx:id="customer_name" layoutX="188.0" layoutY="125.0"  prefHeight="40.0"
                    prefWidth="150.0"/>
         <TextField fx:id="address" layoutX="188.0" layoutY="175.0"  prefHeight="40.0"
                    prefWidth="150.0"/>
-        <TextField fx:id="postal" layoutX="188.0" layoutY="225.0"  prefHeight="40.0"
+        <TextField fx:id="postal_code" layoutX="188.0" layoutY="225.0"  prefHeight="40.0"
                    prefWidth="150.0"/>
         <TextField fx:id="phone" layoutX="188.0" layoutY="275.0" prefHeight="40.0"
                    prefWidth="75.0"/>

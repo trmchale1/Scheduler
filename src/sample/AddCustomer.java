@@ -15,13 +15,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
-
-
+import javafx.event.Event;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
+
 import java.util.ResourceBundle;
+
+import java.util.Optional;
+
 
 
 /*
@@ -39,7 +40,7 @@ check
 */
 public class AddCustomer implements Initializable {
     @FXML
-    private ObservableList<Divisions> divisions = FXCollections.observableArrayList();
+    private ObservableList<Divisions> divisionCollection = FXCollections.observableArrayList();
     @FXML
     private ObservableList<String> uk = FXCollections.observableArrayList();
     @FXML
@@ -47,7 +48,7 @@ public class AddCustomer implements Initializable {
     @FXML
     private ObservableList<String> us = FXCollections.observableArrayList();
     @FXML
-    private ObservableList<Customers> customers = FXCollections.observableArrayList();
+    private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
 
 
     @FXML
@@ -56,35 +57,34 @@ public class AddCustomer implements Initializable {
     private ChoiceBox choice_count;
 
     @FXML
-    private TextField customer_id;
+    private TextField customer_id = new TextField();
     @FXML
-    private TextField customer_name;
+    private TextField customer_name = new TextField();
     @FXML
-    private TextField address;
+    private TextField address = new TextField();
     @FXML
-    private TextField postal_code;
+    private TextField postal_code = new TextField();
     @FXML
-    private TextField phone;
+    private TextField phone = new TextField();
 
 
 
     public AddCustomer(ObservableList<Divisions> divisions,ObservableList<Customers> customers){
-        this.divisions = divisions;
-        this.customers = customers;
+        this.divisionCollection = divisions;
+        this.customerCollection = customers;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         setRegions();
+        resetFields();
     }
 
     public void setRegions(){
-        for(Divisions d : divisions){
+        for(Divisions d : divisionCollection){
            int div_id =  d.getDivision_id();
            String div = d.getDivision();
            int c_id = d.getCountry_id();
-   //        System.out.println("Division ID: " + div_id + " Division: " + div + " Country ID " + c_id);
            if(c_id == 1){
                us.add(div);
            } else if (c_id == 2){
@@ -94,7 +94,6 @@ public class AddCustomer implements Initializable {
            }
         }
         for(String u: can)
-            System.out.println("Uk: " + u);
         choice_count.setItems(FXCollections.observableArrayList("Canada","United Kingdom","United States"));
         choice_count.setOnAction((Event) -> {
             int index = choice_count.getSelectionModel().getSelectedIndex();
@@ -121,14 +120,19 @@ public class AddCustomer implements Initializable {
     }
 
     private void resetFields() {
-        customer_name.setText("Customer Name");
-        address.setText("Address");
-        postal_code.setText("Address");
-        phone.setText("Phone");
-
+        try {
+            customer_name.setText("Customer Name");
+            address.setText("Address");
+            postal_code.setText("Postal Code");
+            phone.setText("Phone");
+            int size = customerCollection.size() + 1;
+            customer_id.setText(String.valueOf(size));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private void CustomerTable(MouseEvent event){
+    private void CustomerTable(Event event){
         try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerTable.fxml"));
         CustomerTable controller = new CustomerTable();
@@ -152,11 +156,14 @@ public class AddCustomer implements Initializable {
             String add_temp = address.getText().trim();
             String postal_code_temp = postal_code.getText().trim();
             String phone_temp = phone.getText().trim();
-            System.out.println(choice_count.getValue());
-//            Customers custObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,choice_div.getValue(),choice_count.getValue());
+            String div_temp = (String) choice_div.getValue();
+            String country_temp = (String) choice_count.getValue();
+            Customers custObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,div_temp,country_temp);
+            customerCollection.add(custObj);
         } catch (Exception e){
-
+            e.printStackTrace();
         }
+        CustomerTable(event);
     }
 
 }
