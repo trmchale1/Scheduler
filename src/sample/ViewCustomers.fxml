@@ -30,8 +30,6 @@
         <AnchorPane id="outterPartsBoxMain"  layoutX="14.0" layoutY="126.0" prefHeight="300.0" prefWidth="850.0" style="-fx-border-radius: 20; -fx-border-color: gray;">
             <children>
                 <Button fx:id="addCustomerButton" layoutX="14.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Add" />
-                <Button layoutX="294.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Modify" />
-                <Button layoutX="378.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Delete" />
                 <TableView fx:id="customerTable" layoutX="10.0" layoutY="58.0" prefHeight="250.0" prefWidth="825.0">
                     <columns>
                         <TableColumn fx:id="id" prefWidth="93.0" text="Customer ID">

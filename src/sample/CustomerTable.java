@@ -9,13 +9,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import java.sql.*;
 import java.io.IOException;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import javafx.scene.control.TableView;
 
 public class CustomerTable implements Initializable {
 
@@ -23,28 +23,47 @@ public class CustomerTable implements Initializable {
     private ObservableList<Divisions> divisionsCollection = FXCollections.observableArrayList();
     @FXML
     private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
+
     @FXML
     private BorderPane mainBorderPane;
 
     @FXML
     private TableView<Customers> customerTable = new TableView<Customers>();
 
+    private Customers CustomerClassObj;
+
+    CustomerInventory customerInventory = new CustomerInventory();
+    CustomerInventory customerInventory2;
+
+   public CustomerTable (CustomerInventory customer){
+       customerInventory = customer;
+   }
+
+   public CustomerTable() {
+
+   }
+
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         try {
             popCustomers();
-            popTable();
             updateModel();
+            popTable();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
     @FXML
-    private void popTable(){
-        customerTable.setItems(customerCollection);
-    }
+    private void popTable() {
+//       customerTable.setEditable(true);
+       for (int i = 1; i < customerInventory.size(); i++) {
+               customerCollection.add(customerInventory.lookUpCustomers(i));
+           }
+            System.out.println(customerCollection.size());
+        customerTable.getItems().addAll(customerCollection);
+   }
 
     @FXML
     private void handleShowView(ActionEvent e) {
@@ -56,8 +75,7 @@ public class CustomerTable implements Initializable {
     private void acHandleShowView(ActionEvent e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCustomer.fxml"));
-            AddCustomer controller = new AddCustomer(this.divisionsCollection,this.customerCollection);
-
+            AddCustomer controller = new AddCustomer(this.divisionsCollection,this.customerInventory);
             loader.setController(controller);
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -80,14 +98,12 @@ public class CustomerTable implements Initializable {
         }
     }
 
-
     public void updateModel() {
         try {
             DBConnection db = new DBConnection();
             Connection conn = db.makeConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("Select * From countries c join first_level_divisions d on c.Country_ID = d.Country_ID");
-            System.out.println(rs);
             while (rs.next()) {
                 String division = rs.getString("Division");
                 int division_id = rs.getInt("Division_ID");
@@ -103,7 +119,6 @@ public class CustomerTable implements Initializable {
         }
     }
 
-
     public void popCustomers() {
         try {
             DBConnection db = new DBConnection();
@@ -118,14 +133,15 @@ public class CustomerTable implements Initializable {
                     String phone = rs.getString("Phone");
                     String division = rs.getString("Division");
                     String country = rs.getString("Country");
-                    System.out.println(id + " " + name + " " + address + " " + postal_code + " " + phone + " " + division + " " + country);
                     Customers custObject = new Customers(id,name,address,postal_code,phone,division,country);
-                    customerCollection.add(custObject);
+                    customerInventory.addCustomer(custObject);
                 }
         } catch (Exception e){
             e.printStackTrace();
         }
     }
+
+
     public void dbScript() throws Exception {
         try {
             DBConnection db = new DBConnection();

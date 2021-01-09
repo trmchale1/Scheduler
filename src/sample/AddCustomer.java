@@ -33,7 +33,9 @@ check
 2.1) run sql script
 check
 2.2) Write code for save customer and exit screen in AddCustomer
-2.3) Write code for edit, delete customer in ViewCustomer
+check
+2.3)
+2.4) Write code for edit, delete customer in ViewCustomer
 2.4) Do we write to the database?
 5.) Start writing the scheduling portion of the app
 6.) Delete Search Feature in View Cust
@@ -47,9 +49,9 @@ public class AddCustomer implements Initializable {
     private ObservableList<String> can = FXCollections.observableArrayList();
     @FXML
     private ObservableList<String> us = FXCollections.observableArrayList();
+
     @FXML
     private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
-
 
     @FXML
     private ChoiceBox choice_div;
@@ -67,11 +69,13 @@ public class AddCustomer implements Initializable {
     @FXML
     private TextField phone = new TextField();
 
+    private  Customers customerClassObj;
 
+    CustomerInventory customerInventory;
 
-    public AddCustomer(ObservableList<Divisions> divisions,ObservableList<Customers> customers){
+    public AddCustomer(ObservableList<Divisions> divisions,CustomerInventory customer){
         this.divisionCollection = divisions;
-        this.customerCollection = customers;
+        this.customerInventory = customer;
     }
 
     @Override
@@ -125,7 +129,7 @@ public class AddCustomer implements Initializable {
             address.setText("Address");
             postal_code.setText("Postal Code");
             phone.setText("Phone");
-            int size = customerCollection.size() + 1;
+            int size = customerInventory.size() + 1;
             customer_id.setText(String.valueOf(size));
         } catch (Exception e){
             e.printStackTrace();
@@ -135,7 +139,8 @@ public class AddCustomer implements Initializable {
     private void CustomerTable(Event event){
         try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerTable.fxml"));
-        CustomerTable controller = new CustomerTable();
+        CustomerTable controller;
+        controller = new CustomerTable(customerInventory);
         loader.setController(controller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -143,13 +148,12 @@ public class AddCustomer implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-    } catch (IOException e) {
+    } catch (Exception e) {
         e.printStackTrace();
     } }
 
     @FXML
     private void saveCustomer(MouseEvent event){
-        System.out.println(choice_div.getSelectionModel().getSelectedItem());
         try {
             int id = Integer.parseInt(customer_id.getText().trim());
             String name = customer_name.getText().trim();
@@ -158,13 +162,14 @@ public class AddCustomer implements Initializable {
             String phone_temp = phone.getText().trim();
             String div_temp = (String) choice_div.getValue();
             String country_temp = (String) choice_count.getValue();
-            Customers custObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,div_temp,country_temp);
-            customerCollection.add(custObj);
+            System.out.println(div_temp + " " + country_temp);
+            customerClassObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,div_temp,country_temp);
+            customerInventory.addCustomer(customerClassObj);
+            System.out.println(id + " " + name + " " + add_temp + " " + postal_code_temp + " " + phone_temp + " " + div_temp + " " + country_temp);
         } catch (Exception e){
             e.printStackTrace();
         }
         CustomerTable(event);
     }
-
 }
 

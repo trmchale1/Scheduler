@@ -1,25 +1,27 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController implements Initializable {
-
+    @FXML
+    private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
     @FXML
     private Button mainButton;
     @FXML
@@ -28,6 +30,9 @@ public class MainController implements Initializable {
     private TextField pw_field;
     @FXML
     private AnchorPane ap;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         TextField user, pw;
@@ -37,11 +42,6 @@ public class MainController implements Initializable {
         System.out.println("New user logged in");
         String u = user_field.getText().trim();
         String p = pw_field.getText().trim();
-        // Test the input
-        System.out.println(u);
-        System.out.println(p);
-
-        // Transition to the next screen
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/CustomerTable.fxml"));
@@ -53,9 +53,9 @@ public class MainController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
-        // Yay!! We see the Address Book
         } catch(IOException e){
             e.printStackTrace();
         }
     }
+
 }
