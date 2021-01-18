@@ -1,39 +1,39 @@
 package sample;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
-import javafx.event.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.*;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import java.sql.*;
-import java.io.IOException;
-import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
 
     @FXML
-    private ObservableList<Divisions> divisionsCollection = FXCollections.observableArrayList();
+    private final ObservableList<Divisions> divisionsCollection = FXCollections.observableArrayList();
     @FXML
-    private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
+    private final ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
 
     @FXML
     private BorderPane mainBorderPane;
 
     @FXML
-    private TableView<Customers> customerTable = new TableView<Customers>();
+    private final TableView<Customers> customerTable = new TableView<Customers>();
 
     private Customers CustomerClassObj;
 
     CustomerInventory customerInventory = new CustomerInventory();
-    CustomerInventory customerInventory2;
 
    public CustomerTable (CustomerInventory customer){
        customerInventory = customer;
@@ -57,12 +57,17 @@ public class CustomerTable implements Initializable {
 
     @FXML
     private void popTable() {
-//       customerTable.setEditable(true);
-       for (int i = 1; i < customerInventory.size(); i++) {
-               customerCollection.add(customerInventory.lookUpCustomers(i));
+       if(customerInventory.size() > 3) {
+           Customers c = customerInventory.lookUpCustomers(4);
+           System.out.println(c.getCustomer_id() + " " + c.getCustomer_name() + " " + c.getDivision() + " " + c.getPhone());
+           int l = customerInventory.size();
+       }
+       for (int i = 1; i < customerInventory.size() + 1; i++) {
+            System.out.println(i);
+            customerCollection.add(customerInventory.lookUpCustomers(i));
            }
-            System.out.println(customerCollection.size());
-        customerTable.getItems().addAll(customerCollection);
+       customerTable.getItems().addAll(customerCollection);
+       customerTable.refresh();
    }
 
     @FXML
@@ -101,7 +106,7 @@ public class CustomerTable implements Initializable {
     public void updateModel() {
         try {
             DBConnection db = new DBConnection();
-            Connection conn = db.makeConnection();
+            Connection conn = DBConnection.makeConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("Select * From countries c join first_level_divisions d on c.Country_ID = d.Country_ID");
             while (rs.next()) {
@@ -122,7 +127,7 @@ public class CustomerTable implements Initializable {
     public void popCustomers() {
         try {
             DBConnection db = new DBConnection();
-            Connection conn = db.makeConnection();
+            Connection conn = DBConnection.makeConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("Select * From customers c join first_level_divisions d On c.Division_ID = d.Division_ID join countries co On co.Country_ID = d.Country_ID");
             while(rs.next()){
@@ -145,7 +150,7 @@ public class CustomerTable implements Initializable {
     public void dbScript() throws Exception {
         try {
             DBConnection db = new DBConnection();
-            Connection conn = db.makeConnection();
+            Connection conn = DBConnection.makeConnection();
             PreparedStatement stmt12 = conn.prepareStatement("INSERT INTO countries VALUES(1,\t'U.S',\tNOW(), 'script', NOW(), 'script');");
 /*
             PreparedStatement stmt1 = conn.prepareStatement("DELETE FROM appointments WHERE Appointment_ID < 10000;");
@@ -415,7 +420,7 @@ public class CustomerTable implements Initializable {
             stmt12.close();
             System.out.println("Inserts Successful");
         } catch(Exception e){
-            e.printStackTrace();;
+            e.printStackTrace();
         }
     }
 }

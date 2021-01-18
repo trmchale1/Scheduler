@@ -1,8 +1,8 @@
 package sample;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,16 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.event.Event;
-import java.io.IOException;
+
 import java.net.URL;
-
-import java.util.ResourceBundle;
-
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
 
@@ -44,14 +41,14 @@ public class AddCustomer implements Initializable {
     @FXML
     private ObservableList<Divisions> divisionCollection = FXCollections.observableArrayList();
     @FXML
-    private ObservableList<String> uk = FXCollections.observableArrayList();
+    private final ObservableList<String> uk = FXCollections.observableArrayList();
     @FXML
-    private ObservableList<String> can = FXCollections.observableArrayList();
+    private final ObservableList<String> can = FXCollections.observableArrayList();
     @FXML
-    private ObservableList<String> us = FXCollections.observableArrayList();
+    private final ObservableList<String> us = FXCollections.observableArrayList();
 
     @FXML
-    private ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
+    private final ObservableList<Customers> customerCollection = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox choice_div;
@@ -59,15 +56,15 @@ public class AddCustomer implements Initializable {
     private ChoiceBox choice_count;
 
     @FXML
-    private TextField customer_id = new TextField();
+    private final TextField customer_id = new TextField();
     @FXML
-    private TextField customer_name = new TextField();
+    private final TextField customer_name = new TextField();
     @FXML
-    private TextField address = new TextField();
+    private final TextField address = new TextField();
     @FXML
-    private TextField postal_code = new TextField();
+    private final TextField postal_code = new TextField();
     @FXML
-    private TextField phone = new TextField();
+    private final TextField phone = new TextField();
 
     private  Customers customerClassObj;
 
@@ -165,7 +162,6 @@ public class AddCustomer implements Initializable {
             System.out.println(div_temp + " " + country_temp);
             customerClassObj = new Customers(id,name,add_temp,postal_code_temp,phone_temp,div_temp,country_temp);
             customerInventory.addCustomer(customerClassObj);
-            System.out.println(id + " " + name + " " + add_temp + " " + postal_code_temp + " " + phone_temp + " " + div_temp + " " + country_temp);
         } catch (Exception e){
             e.printStackTrace();
         }
