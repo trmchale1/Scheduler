@@ -21,22 +21,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-
-/*
-1.) Share country and division data across controllers
-check
-2.) When the user picks a country show only those divisions
-check
-2.1) run sql script
-check
-2.2) Write code for save customer and exit screen in AddCustomer
-check
-2.3)
-2.4) Write code for edit, delete customer in ViewCustomer
-2.4) Do we write to the database?
-5.) Start writing the scheduling portion of the app
-6.) Delete Search Feature in View Cust
-*/
 public class AddCustomer implements Initializable {
     @FXML
     private ObservableList<Divisions> divisionCollection = FXCollections.observableArrayList();

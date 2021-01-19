@@ -2,11 +2,9 @@
 
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0"
@@ -32,12 +30,12 @@
                 <Button fx:id="addCustomerButton" layoutX="14.0" layoutY="253.0" mnemonicParsing="false"  style="-fx-padding: 10;" text="Add" />
                 <TableView fx:id="customerTable" layoutX="10.0" layoutY="58.0" prefHeight="250.0" prefWidth="825.0">
                     <columns>
-                        <TableColumn fx:id="id" prefWidth="93.0" text="Customer ID">
+                        <TableColumn fx:id="customer_id" prefWidth="93.0" text="Customer ID">
                             <cellValueFactory>
                                 <PropertyValueFactory property="customer_id" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="name" prefWidth="118.0" text="Customer Name">
+                        <TableColumn fx:id="customer_name" prefWidth="118.0" text="Customer Name">
                             <cellValueFactory>
                                 <PropertyValueFactory property="customer_name" />
                             </cellValueFactory>
@@ -47,7 +45,7 @@
                                 <PropertyValueFactory property="address" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="postal" prefWidth="106.0" style="text-align: justify;" text="Postal Code">
+                        <TableColumn fx:id="postal_code" prefWidth="106.0" style="text-align: justify;" text="Postal Code">
                             <cellValueFactory>
                                 <PropertyValueFactory property="postal_code" />
                             </cellValueFactory>

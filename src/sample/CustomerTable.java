@@ -9,7 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -29,7 +31,7 @@ public class CustomerTable implements Initializable {
     private BorderPane mainBorderPane;
 
     @FXML
-    private final TableView<Customers> customerTable = new TableView<Customers>();
+    private TableView<Customers> customerTable;
 
     private Customers CustomerClassObj;
 
@@ -57,17 +59,34 @@ public class CustomerTable implements Initializable {
 
     @FXML
     private void popTable() {
-       if(customerInventory.size() > 3) {
-           Customers c = customerInventory.lookUpCustomers(4);
-           System.out.println(c.getCustomer_id() + " " + c.getCustomer_name() + " " + c.getDivision() + " " + c.getPhone());
-           int l = customerInventory.size();
-       }
-       for (int i = 1; i < customerInventory.size() + 1; i++) {
-            System.out.println(i);
-            customerCollection.add(customerInventory.lookUpCustomers(i));
-           }
-       customerTable.getItems().addAll(customerCollection);
-       customerTable.refresh();
+        customerTable = new TableView<Customers>();
+        TableColumn<Customers,Integer> customer_id = new TableColumn<Customers,Integer>("Customer ID");
+        TableColumn<Customers,String> customer_name = new TableColumn<Customers,String>("Customer Name");
+        TableColumn<Customers,String> address = new TableColumn<Customers,String>("Address");
+        TableColumn<Customers,String> postal_code = new TableColumn<Customers,String>("Postal");
+        TableColumn<Customers,String> phone = new TableColumn<Customers,String>("Phone");
+        TableColumn<Customers,String> division = new TableColumn<Customers,String>("Division");
+        TableColumn<Customers,String> country = new TableColumn<Customers,String>("Division");
+        customer_id.setCellValueFactory(new PropertyValueFactory("customer_id"));
+        customer_name.setCellValueFactory(new PropertyValueFactory("customer_name"));
+        address.setCellValueFactory(new PropertyValueFactory("address"));
+        postal_code.setCellValueFactory(new PropertyValueFactory("postal_code"));
+        phone.setCellValueFactory(new PropertyValueFactory("phone"));
+        division.setCellValueFactory(new PropertyValueFactory("division"));
+        country.setCellValueFactory(new PropertyValueFactory("country"));
+        customerTable.getColumns().setAll(customer_id,customer_name,address,postal_code,phone,division,country);
+
+        for (int i = 1; i < customerInventory.size() + 1; i++) {
+           Customers c = customerInventory.lookUpCustomers(i);
+           System.out.println(c.getCustomer_id() + " " + c.getCustomer_name() + " " + c.getPhone() + " " + c.getDivision() + " " + c.getCountry());
+           customerCollection.add(c);
+        }
+
+        customerTable.setItems(customerCollection);
+//        customerTable.refresh();
+        System.out.println(customerCollection.size());
+
+
    }
 
     @FXML
